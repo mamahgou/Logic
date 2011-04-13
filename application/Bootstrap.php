@@ -217,11 +217,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->setRouter($this->_router)
             ->registerPlugin(new Logic_Controller_Plugin_Auth($auth, $this->_acl))
             ->registerPlugin(new Logic_Controller_Plugin_Layout())
+            ->registerPlugin(new Logic_Controller_Plugin_ErrorHandler())
             ->setParam('env', APP_ENV)
             ->throwExceptions(false);
 
         return $this->_fontController;
     }
-
 }
 
