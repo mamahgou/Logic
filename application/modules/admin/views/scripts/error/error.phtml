@@ -1,0 +1,12 @@
+
+<h2>Request 錯誤</h2>
+<h3>
+    錯誤訊息：<?php echo $this->exception->getCode() . ' ' . $this->exception->getMessage();?><br />
+</h3>
+<?php if (isset($this->exception) && APP_ENV != 'production') : ?>
+<h3>
+    錯誤位址：<?php echo $this->exception->getFile() . ' (' . $this->exception->getLine() . ')';?>
+</h3>
+<h3>堆疊追蹤:</h3>
+<pre><?php echo $this->exception->getTraceAsString();?></pre>
+<?php endif ?>
