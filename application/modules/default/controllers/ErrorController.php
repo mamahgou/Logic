@@ -1,7 +1,11 @@
 <?php
 
-class ErrorController extends Zend_Controller_Action
+class ErrorController extends Logic_Controller_Action_Default
 {
+    public function init()
+    {
+        $this->view->headTitle('發生錯誤');
+    }
 
     public function errorAction()
     {
@@ -18,7 +22,7 @@ class ErrorController extends Zend_Controller_Action
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
                 // 404 error -- controller, action or route not found
                 $this->getResponse()->setHttpResponseCode(404);
-                $this->render('notfound');
+                $this->render('404');
                 break;
             default:
                 // application error
@@ -45,7 +49,5 @@ class ErrorController extends Zend_Controller_Action
         $log = $bootstrap->getResource('Log');
         return $log;
     }
-
-
 }
 

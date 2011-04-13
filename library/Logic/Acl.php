@@ -22,6 +22,7 @@ class Logic_Acl extends Zend_Acl
 
         //privilige
         $this->allow('guest', 'default');
+        //$this->allow('guest');
         $this->allow('admin');
 
         //auth, error controller

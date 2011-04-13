@@ -4,7 +4,6 @@ class Admin_ErrorController extends Logic_Controller_Action_Admin
 {
     public function init()
     {
-        $this->setLayoutName('error');
         $this->view->headTitle('Error');
     }
 

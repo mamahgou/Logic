@@ -14,6 +14,8 @@ define('LOG_PATH', DATA_PATH . DS . 'logs');
 define('TMP_PATH', DATA_PATH . DS . 'tmp');
 define('CACHE_PATH', DATA_PATH . DS . 'cache');
 define('SESSION_PATH', DATA_PATH . DS . 'session');
+define('FONT_PATH', DATA_PATH . DS . 'font');
+define('CAPTCHA_PATH', ROOT_PATH . DS . 'public' . DS . 'captcha');
 define('TODAY', date('Y-m-d'));
 
 //set include path
