@@ -1,0 +1,64 @@
+<?php $this->jqueryUI(); $this->jvalidate(); $this->inlineScript()->CaptureStart();?>
+var popup = <?php echo !empty($this->errorMessage) ? 'true' : 'false';?>;
+$(document).ready(function(){
+    $("#dialog").dialog({
+        title: '發生下列錯誤',
+        height: 140,
+        modal: true,
+        autoOpen: false
+    });
+
+    $('#form').validate({
+        rules: {
+            account: {
+                required: true,
+                email: true
+            },
+            password: 'required',
+            'captcha[input]': 'required'
+        },
+        errorPlacement: function(error, element) {
+           if (element.attr("name") == "captcha[input]") {
+               error.insertAfter($(element).parent().children().last());
+           } else {
+               error.insertAfter(element);
+           }
+        }
+    });
+
+    if (popup) {
+        $("#dialog").dialog('open');
+    }
+});
+<?php $this->inlineScript()->CaptureEnd();?>
+
+<img src="<?php echo $this->baseUrl('/public/images/title_login.gif');?>" alt="Login" />
+<form id="form" method="post" action="">
+<div id="loginArea"><input type="submit" class="loginbtn" value="登入" />
+<div class="loginMain">
+<h2>請輸入您的帳號管理</h2>
+<table>
+    <tr>
+        <th>E-mail</th>
+        <td><?php echo  $this->formText('account');?></td>
+    </tr>
+    <tr>
+        <th>密碼</th>
+        <td><?php echo $this->formPassword('password');?></td>
+    </tr>
+    <tr>
+        <th>驗證碼</th>
+        <td><?php echo $this->formText('captcha[input]')?><?php echo $this->captcha->render() . $this->formHidden('captcha[id]', $this->captcha->getId()) ?></td>
+    </tr>
+</table>
+</div>
+</div>
+</form>
+<div id="dialog">
+    <img src="<?php echo $this->baseUrl('/public/images/dialog_warring.png');?>" class="errorImg" />
+    <ul>
+<?php foreach ($this->errorMessage as $m) :?>
+      <li><?php echo $m;?></li>
+<?php endforeach;?>
+    </ul>
+</div>
