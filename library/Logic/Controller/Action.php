@@ -151,7 +151,7 @@ class Logic_Controller_Action extends Zend_Controller_Action
             $this->getHelper('layout')->disableLayout();
         }
 
-        $this->view->headTitle('七福傳播事業有限公司');
+        $this->view->headTitle('');
         $this->view->headTitle()->setSeparator(' - ');
     }
 
