@@ -30,7 +30,7 @@ class Admin_AuthController extends Logic_Controller_Action_Admin
             'timeout' => 300,
             'font' => FONT_PATH . '/MONACO.TTF',
             'imgDir' => CAPTCHA_PATH,
-            'imgUrl' => $this->_request->getBaseUrl() . '/public/captcha/',
+            'imgUrl' => $this->_request->getBaseUrl() . '/captcha/',
             'width' => 74,
             'height' => 24,
             'fontSize' => 11,
