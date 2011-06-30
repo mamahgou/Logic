@@ -18,7 +18,7 @@ class Logic_Controller_Action_Admin extends Logic_Controller_Action
         parent::__construct($request, $response, $invokeArgs);
 
         //html title
-        $this->view->headTitle('Website Management');
+        $this->view->headTitle('Administration');
     }
 
     public function postDispatch()

@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends Zend_Controller_Action
+class IndexController extends Logic_Controller_Action_Default
 {
 
     public function init()

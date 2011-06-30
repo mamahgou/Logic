@@ -82,37 +82,41 @@ class Logic_Controller_Action extends Zend_Controller_Action
 
         //html head meta
         $this->view->headMeta()
-            ->prependHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1')
+        	->appendName('description', '')
+        	->appendName('author', '')
+        	->appendName('keywords', '')
+        	->appendName('viewport', 'width=device-width, initial-scale=1.0');
 
-        //html head script
-        $this->view->headScript()->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js');
-
-        //load IE7.js
-        /*$this->view->headScript()->appendFile(
-            $baseUrl . '/public/js/IE7.js',
-            'text/javascript',
-            array('conditional' => 'lt IE 8')
-        );*/
-
-        //html head link
-        /*$this->view->headLink()->prependStylesheet($baseUrl . '/public/css/all.css', 'all');
-        $this->view->headLink()->appendStylesheet($baseUrl . '/public/css/ie.css', 'all', 'IE');
+        //favorite icon
         $this->view->headLink()->headLink(
             array(
                 'rel' => 'shortcut icon',
-                'href' => $baseUrl . '/public/images/favicon.ico',
-                'type' => 'image/x-icon'
+                'href' => $this->view->baseUrl('/favicon.ico'),
             ),
             'APPEND'
         );
         $this->view->headLink()->headLink(
             array(
-                'rel' => 'icon',
-                'href' => $baseUrl . '/public/images/favicon.ico',
-                'type' => 'image/x-icon'
+                'rel' => 'apple-touch-icon',
+                'href' => $this->view->baseUrl('/apple-touch-icon.png'),
             ),
             'APPEND'
-        );*/
+        );
+
+        //google analytics
+        if (APP_ENV == 'production') {
+        	$script = <<<SCRIPT
+window.jQuery || document.write(unescape('%3Cscript src="/js/jquery-1.6.1.min.js"%3E%3C/script%3E'));
+var _gaq=[['_setAccount','UA-24269291-1'],['_trackPageview']];
+(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+s.parentNode.insertBefore(g,s)}(document,'script'));
+SCRIPT;
+
+        	$this->view->headScript()
+        		->appendScript($script);
+        }
     }
 
     /**
@@ -151,7 +155,7 @@ class Logic_Controller_Action extends Zend_Controller_Action
             $this->getHelper('layout')->disableLayout();
         }
 
-        $this->view->headTitle('');
+        $this->view->headTitle('Logic');
         $this->view->headTitle()->setSeparator(' - ');
     }
 

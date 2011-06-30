@@ -13,6 +13,8 @@ class Logic_Controller_Plugin_ErrorHandler extends Zend_Controller_Plugin_Abstra
     {
         $module = $request->getModuleName();
         $errorHandler = Zend_Controller_Front::getInstance()->getPlugin('Zend_Controller_Plugin_ErrorHandler');
+
+        //each module has its own error handler
         $errorHandler->setErrorHandlerModule($module);
     }
 }

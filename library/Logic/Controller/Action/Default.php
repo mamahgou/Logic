@@ -1,6 +1,6 @@
 <?php
 
-class Logic_Controller_Action_Default extends Zend_Controller_Action
+class Logic_Controller_Action_Default extends Logic_Controller_Action
 {
     /**
      * construct
@@ -17,45 +17,13 @@ class Logic_Controller_Action_Default extends Zend_Controller_Action
     {
         parent::__construct($request, $response, $invokeArgs);
 
-        //html head meta
-        $this->view->headMeta()
-            ->prependHttpEquiv('Content-Type', 'text/html; charset=UTF-8');
+        //html head link
+        $this->view->headLink()
+        	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
+        	->appendStylesheet($this->view->baseUrl('/css/handheld.css?v=2'), 'handheld');
 
         //html head script
-        $this->view->headScript()
-        	->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js');
-            //->appendFile($this->view->baseUrl('/public/js/chief.js'));
-
-        //favorite icon
-        $this->view->headLink()->headLink(
-            array(
-                'rel' => 'shortcut icon',
-                'href' => $this->view->baseUrl('/public/images/favicon.ico'),
-                'type' => 'image/x-icon'
-            ),
-            'APPEND'
-        );
-        $this->view->headLink()->headLink(
-            array(
-                'rel' => 'icon',
-                'href' => $this->view->baseUrl('/public/images/favicon.ico'),
-                'type' => 'image/x-icon'
-            ),
-            'APPEND'
-        );
-
-        //html title
-        $this->view->headTitle('');
-        $this->view->headTitle()->setSeparator(' - ');
-
-        //layout
-        $options = array(
-            'layout' => 'main',
-            'layoutPath' => MODULES_PATH . DS . 'default' . DS . 'layouts' . DS .'scripts',
-            'contentKey' => 'content',
-            'view' => $this->view,
-        );
-        $layout = Zend_Layout::getMvcInstance();
-        $layout->setOptions($options);
+        /*$this->view->headScript()
+        	->appendFile($this->view->baseUrl('/public/js/chief.js'));*/
     }
 }
