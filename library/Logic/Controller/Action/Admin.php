@@ -19,6 +19,12 @@ class Logic_Controller_Action_Admin extends Logic_Controller_Action
 
         //html title
         $this->view->headTitle('Administration');
+
+        //html head link
+        $this->view->headLink()
+        	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
+        	->appendStylesheet($this->view->baseUrl('/css/960.css'), 'all')
+        	->appendStylesheet($this->view->baseUrl('/css/admin.css'), 'all');
     }
 
     public function postDispatch()

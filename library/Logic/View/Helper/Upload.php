@@ -7,10 +7,10 @@ class Logic_View_Helper_Upload
         $front = Zend_Controller_Front::getInstance();
         $baseUrl = $front->getBaseUrl();
         $headLink = new Zend_View_Helper_HeadLink();
-        $headLink->appendStylesheet($baseUrl . '/public/js/uploadify/uploadify.css');
+        $headLink->appendStylesheet($baseUrl . '/js/uploadify/uploadify.css');
 
         $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile($baseUrl . '/public/js/uploadify/swfobject.js');
-        $script->appendFile($baseUrl . '/public/js/uploadify/jquery.uploadify.v2.1.4.min.js');
+        $script->appendFile($baseUrl . '/js/uploadify/swfobject.js');
+        $script->appendFile($baseUrl . '/js/uploadify/jquery.uploadify.v2.1.4.min.js');
     }
 }

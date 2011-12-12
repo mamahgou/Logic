@@ -8,11 +8,9 @@ class IndexController extends Logic_Controller_Action_Default
         /* Initialize action controller here */
     }
 
-    public function indexAction()
+    public function indexAction ()
     {
 
     }
-
-
 }
 

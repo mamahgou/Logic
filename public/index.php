@@ -15,7 +15,10 @@ define('TMP_PATH', DATA_PATH . DS . 'tmp');
 define('CACHE_PATH', DATA_PATH . DS . 'cache');
 define('SESSION_PATH', DATA_PATH . DS . 'session');
 define('FONT_PATH', DATA_PATH . DS . 'font');
-define('CAPTCHA_PATH', ROOT_PATH . DS . 'public' . DS . 'captcha');
+define('PUBLIC_PATH', ROOT_PATH . DS . 'public');
+define('IMAGE_PATH', PUBLIC_PATH . DS . 'img');
+define('PUBLIC_TMP_PATH', PUBLIC_PATH . DS . 'tmp');
+define('CAPTCHA_PATH', PUBLIC_PATH . DS . 'captcha');
 define('TODAY', date('Y-m-d'));
 
 //set include path

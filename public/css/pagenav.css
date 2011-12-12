@@ -1,0 +1,67 @@
+@charset "utf-8";
+
+/* CSS Document */
+.pageNav {
+    width: 100%;
+    clear: both;
+    display: block;
+    text-align: left;
+    line-height: 22px;
+    font-family: arial, Tahoma, sans-serif;
+}
+
+.pageNav a, .pageNav span {
+    font-size: 0.8em;
+    vertical-align: middle;
+    margin: 0 5px;
+    padding: 1px 4px;
+    display: inline-block;
+    float: left;
+}
+
+.pageNav a:hover { 
+    /*border: 1px solid #ccc7c0;
+    padding: 0px 3px;*/
+}
+
+.pageNav .selected {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #00a0df;
+}
+
+.pageNav .previous,.pageNav .next {
+    display: block;
+    background-repeat: no-repeat;
+    height: 11px;
+    width: 7px;
+    padding: 0px;
+    text-indent: -9999px;
+    margin-top: 7px;
+}
+
+.pageNav .previous {
+    background: url(/img/pagenav.gif) 0 0;
+}
+
+.pageNav .previous:hover {
+    background-position: 0 -11px;
+}
+
+.pageNav .next {
+    background: url(/img/pagenav.gif) -7px 0;
+}
+
+.pageNav .next:hover {
+    background-position: -7px -11px;
+}
+
+.total {
+    font-size: 11px;
+    float: right;
+}
+
+.total i {
+    font-style: normal;
+    font-weight: bold;
+}

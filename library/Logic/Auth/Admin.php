@@ -64,6 +64,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
     {
         //get info from db
         $info = $this->_getInfo();
+        //var_dump($info); die;
         if ($info['credential'] == '1') { //認證通過
             if ($info['status'] == '1') { //帳號狀態 enable
                 $this->_result['code'] = Zend_Auth_Result::SUCCESS;
@@ -71,7 +72,6 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
                     'id' => $info['id'],
                     'account' => $info['account'],
                     'name' => $info['name'],
-                    'permission' => $info['permission'],
                     'role' => 'admin'
                 );
                 $this->result['messages'][] = '認證成功';

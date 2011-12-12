@@ -66,8 +66,7 @@ abstract class Logic_Model_Abstract
      */
     public function setPage($page)
     {
-        $page = intval($page);
-        $this->_page = (empty($page)) ? 1 : $page;
+        $this->_page = (empty($page)) ? 1 : (int) $page;
     }
 
     /**
@@ -88,8 +87,7 @@ abstract class Logic_Model_Abstract
      */
     public function setLimit($limit)
     {
-        $limit = intval($limit);
-        $this->_limit = (empty($limit)) ? null : $limit;
+        $this->_limit = (empty($limit)) ? null : (int) $limit;
     }
 
     /**
@@ -182,112 +180,28 @@ abstract class Logic_Model_Abstract
     /**
      * get all rows
      *
-     * @param string|null $filter
+     * @param array|null $filter
+     * @param string $order
+     * @param string $sort
      * @return false|array
      */
-    public function getAll($filter = null)
+    public function getAll($condition = array(), $order = 'id', $sort = 'desc')
     {
         $select = $this->_db->select()
             ->from($this->_name, '*')
-            ->order('modify_time DESC');
+            ->order($order . ' ' . $sort);
 
-        if (!empty($filter)) {
-            $select->where('name LIKE ?', '%' . trim($filter) . '%');
+        //limit
+        if ($this->getLimit()) {
+            $select->limitPage($this->_page, $this->_limit);
         }
 
-        return $this->_db->fetchAll($select);
-    }
-
-    /**
-     * get published rows
-     *
-     * @return array|false
-     */
-    public function getPublished()
-    {
-        $select = $this->_db->select()
-            ->from($this->_name, '*')
-            ->where('is_publish = 1')
-            ->order('modify_time DESC');
-
-        return $this->_db->fetchAll($select);
-    }
-
-    /**
-     * get next sort id
-     *
-     * @param null|string $categoryId
-     * @return integer
-     */
-    public function getNextSortId($categoryId = null)
-    {
-        $select = $this->_db->select()
-            ->from($this->_name, new Zend_Db_Expr('MAX(`sort_id`) + 1'));
-
-        if ($categoryId) {
-            $select->where('category_id = ?', $categoryId);
-        }
-
-        $sortId = (int)$this->_db->fetchOne($select);
-
-        if ($sortId < 1) {
-            $sortId = 1;
-        }
-
-        return $sortId;
-    }
-
-    /**
-     * order the sorting seq
-     *
-     * @param integer $id
-     * @param integer $position
-     * @throws Zend_Db_Exception
-     * @return boolean
-     */
-    public function sort($id, $position)
-    {
-        //get current sort id
-        $select = $this->_db->select()
-            ->from($this->_name, '*')
-            ->where('id = ?', $id);
-        $row = $this->_db->fetchRow($select);
-
-        //consider the relationship of category exist or not
-        $withCategory = (isset($row['category_id'])) ? " AND category_id = '{$row['category_id']}'" : '';
-
-        $this->_db->beginTransaction();
-        try {
-            //upgrade
-            if ($row['sort_id'] > $position) {
-                $this->_db->update(
-                    $this->_name,
-                    array('sort_id' => new Zend_Db_Expr('sort_id + 1')),
-                    "sort_id >= {$position} AND sort_id <= {$row['sort_id']}" . $withCategory
-                );
-                $this->_db->update(
-                    $this->_name,
-                    array('sort_id' => $position),
-                    "id = {$id}"
-                );
-            } else {
-                //downgrade
-                $this->_db->update(
-                    $this->_name,
-                    array('sort_id' => new Zend_Db_Expr('sort_id - 1')),
-                    "sort_id >= {$row['sort_id']} AND sort_id <= {$position}" . $withCategory
-                );
-                $this->_db->update(
-                    $this->_name,
-                    array('sort_id' => $position),
-                    "id = {$id}"
-                );
+        if (!empty($condition)) {
+            foreach ($condition as $key => $value) {
+                $select->where('`' . $key . '` LIKE ?', '%' . trim($value) . '%');
             }
-            $this->_db->commit();
-        } catch (Zend_Db_Exception $e) {
-            $this->_db->rollback();
-            throw $e;
         }
-        return true;
+
+        return $this->_db->fetchAll($select);
     }
 }

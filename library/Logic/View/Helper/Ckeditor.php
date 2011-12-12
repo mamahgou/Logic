@@ -7,7 +7,7 @@ class Logic_View_Helper_Ckeditor
         $front = Zend_Controller_Front::getInstance();
         $baseUrl = $front->getBaseUrl();
         $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile($baseUrl . '/public/js/ckeditor/ckeditor.js');
-        $script->appendFile($baseUrl . '/public/js/ckeditor/adapters/jquery.js');
+        $script->appendFile($baseUrl . '/js/ckeditor/ckeditor.js');
+        $script->appendFile($baseUrl . '/js/ckeditor/adapters/jquery.js');
     }
 }

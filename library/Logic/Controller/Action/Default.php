@@ -17,13 +17,15 @@ class Logic_Controller_Action_Default extends Logic_Controller_Action
     {
         parent::__construct($request, $response, $invokeArgs);
 
+        //html title
+        $settings = $this->_bootstrap->getOptions();
+        $settings = $settings['configuration']['settings'];
+        $this->view->headTitle($settings['title']);
+
         //html head link
         $this->view->headLink()
         	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
-        	->appendStylesheet($this->view->baseUrl('/css/handheld.css?v=2'), 'handheld');
-
-        //html head script
-        /*$this->view->headScript()
-        	->appendFile($this->view->baseUrl('/public/js/chief.js'));*/
+        	->appendStylesheet($this->view->baseUrl('/css/960.css'), 'all')
+        	->appendStylesheet($this->view->baseUrl('/css/default.css'), 'all');
     }
 }

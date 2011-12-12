@@ -15,6 +15,7 @@ class Logic_Acl extends Zend_Acl
     {
         //modules (resource)
         $this->add(new Zend_Acl_Resource('default'));
+        $this->add(new Zend_Acl_Resource('admin'));
 
         //role
         $this->addRole(new Zend_Acl_Role('guest'));
@@ -22,13 +23,12 @@ class Logic_Acl extends Zend_Acl
 
         //privilige
         $this->allow('guest', 'default');
-        //$this->allow('guest');
         $this->allow('admin');
 
         //auth, error controller
         $this->allow(null, null, 'auth');
         $this->allow(null, null, 'error');
-
+        $this->allow(null, null, 'upload');
         return $this;
     }
 }

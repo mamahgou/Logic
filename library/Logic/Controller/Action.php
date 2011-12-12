@@ -44,6 +44,13 @@ class Logic_Controller_Action extends Zend_Controller_Action
     protected $_storage;
 
     /**
+     * breadcrumb
+     *
+     * @var array
+     */
+    protected $_breadcrumb = array();
+
+    /**
      * bootstrap
      *
      * @var Zend_Application_Bootstrap_BootstrapAbstract
@@ -80,43 +87,48 @@ class Logic_Controller_Action extends Zend_Controller_Action
             define('LAYOUT_PATH', MODULES_PATH . DS . $module . DS . 'layouts' . DS . 'scripts');
         }
 
+        //settings
+        $settings = $this->_bootstrap->getOptions();
+        $settings = $settings['configuration']['settings'];
+
         //html head meta
         $this->view->headMeta()
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1')
-        	->appendName('description', '')
-        	->appendName('author', '')
-        	->appendName('keywords', '')
+        	->appendName('description', $settings['description'])
+        	->appendName('author', $settings['author'])
+        	->appendName('keywords', $settings['keywords'])
         	->appendName('viewport', 'width=device-width, initial-scale=1.0');
 
         //favorite icon
         $this->view->headLink()->headLink(
             array(
                 'rel' => 'shortcut icon',
-                'href' => $this->view->baseUrl('/favicon.ico'),
+                'href' => $this->view->baseUrl('favicon.ico'),
             ),
             'APPEND'
         );
-        $this->view->headLink()->headLink(
+        /*$this->view->headLink()->headLink(
             array(
                 'rel' => 'apple-touch-icon',
-                'href' => $this->view->baseUrl('/apple-touch-icon.png'),
+                'href' => $this->view->baseUrl('apple-touch-icon.png'),
             ),
             'APPEND'
-        );
+        );*/
 
-        //google analytics
-        if (APP_ENV == 'production') {
+        //jquery & google analytics
+        if (APP_ENV == 'production' && $module != 'admin') {
+            $gaq = $settings['ga'];
         	$script = <<<SCRIPT
-window.jQuery || document.write(unescape('%3Cscript src="/js/jquery-1.6.1.min.js"%3E%3C/script%3E'));
-var _gaq=[['_setAccount','UA-24269291-1'],['_trackPageview']];
+var _gaq=[['_setAccount','$gaq'],['_trackPageview']];
 (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
 g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
 s.parentNode.insertBefore(g,s)}(document,'script'));
 SCRIPT;
 
-        	$this->view->headScript()
-        		->appendScript($script);
+        	$this->view->inlineScript()->appendScript($script);
         }
+
+        $this->view->headTitle()->setSeparator(' | ');
     }
 
     /**
@@ -154,9 +166,6 @@ SCRIPT;
         if ($this->_layout === false) {
             $this->getHelper('layout')->disableLayout();
         }
-
-        $this->view->headTitle('Logic');
-        $this->view->headTitle()->setSeparator(' - ');
     }
 
     /**
@@ -287,7 +296,7 @@ SCRIPT;
     public function pagination($result)
     {
         $paginator = Zend_Paginator::factory($result);
-        $paginator->setItemCountPerPage($this->_getParam('limit', 20));
+        $paginator->setItemCountPerPage($this->_getParam('limit', 10));
         $paginator->setCurrentPageNumber($this->_getParam('page', 1));
         $paginator->setView($this->view);
 

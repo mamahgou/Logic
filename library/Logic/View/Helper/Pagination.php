@@ -51,7 +51,7 @@ class Logic_View_Helper_Pagination extends Zend_View_Helper_PaginationControl
         if ($paginator->count()) {
             $front = Zend_Controller_Front::getInstance();
             $headLink = new Zend_View_Helper_HeadLink();
-            $headLink->appendStylesheet($front->getBaseUrl() . '/public/css/pagenav.css');
+            $headLink->appendStylesheet($front->getBaseUrl() . '/css/pagenav.css');
         }
 
         $pages = get_object_vars($paginator->getPages($scrollingStyle));
