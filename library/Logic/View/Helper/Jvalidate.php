@@ -1,13 +1,16 @@
 <?php
 
-class Logic_View_Helper_Jvalidate
+class Logic_View_Helper_Jvalidate extends Zend_View_Helper_Abstract
 {
+    /**
+     * load jquery validation
+     *
+     * @return void
+     */
     public function jvalidate()
     {
-        $front = Zend_Controller_Front::getInstance();
-        $baseUrl = $front->getBaseUrl();
         $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile($baseUrl . '/js/jquery.validate.min.js');
-        //$script->appendFile($baseUrl . '/js/jquery.validate.default.js');
+        $script->appendFile($this->view->baseUrl('/js/jquery.validate.min.js'));
+        //$script->appendFile($this->view->baseUrl('/js/jquery.validate.default.js'));
     }
 }

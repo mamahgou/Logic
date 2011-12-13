@@ -44,13 +44,6 @@ class Logic_Controller_Action extends Zend_Controller_Action
     protected $_storage;
 
     /**
-     * breadcrumb
-     *
-     * @var array
-     */
-    protected $_breadcrumb = array();
-
-    /**
      * bootstrap
      *
      * @var Zend_Application_Bootstrap_BootstrapAbstract
@@ -99,7 +92,12 @@ class Logic_Controller_Action extends Zend_Controller_Action
         	->appendName('keywords', $settings['keywords'])
         	->appendName('viewport', 'width=device-width, initial-scale=1.0');
 
-        //favorite icon
+        //html head link
+        $this->view->headLink()
+        	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
+        	->appendStylesheet($this->view->baseUrl('/css/960.css'), 'all');
+
+         //favorite icon
         $this->view->headLink()->headLink(
             array(
                 'rel' => 'shortcut icon',
@@ -107,6 +105,7 @@ class Logic_Controller_Action extends Zend_Controller_Action
             ),
             'APPEND'
         );
+
         /*$this->view->headLink()->headLink(
             array(
                 'rel' => 'apple-touch-icon',
@@ -115,8 +114,16 @@ class Logic_Controller_Action extends Zend_Controller_Action
             'APPEND'
         );*/
 
-        //jquery & google analytics
-        if (APP_ENV == 'production' && $module != 'admin') {
+
+        //load jquery
+        $this->view->headScript()->offsetSetFile(0, '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+        $script = '
+window.jQuery || document.write(\'<script src="' . $this->view->baseUrl('/js/jquery-1.7.1.min.js') . '"><\\/script>\');';
+
+        $this->view->headScript()->offsetSetScript(1, $script);
+
+        //google analytics
+        if (APP_ENV == 'production' && $module != 'admin' && !empty($settings['ga'])) {
             $gaq = $settings['ga'];
         	$script = <<<SCRIPT
 var _gaq=[['_setAccount','$gaq'],['_trackPageview']];

@@ -24,8 +24,6 @@ class Logic_Controller_Action_Default extends Logic_Controller_Action
 
         //html head link
         $this->view->headLink()
-        	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
-        	->appendStylesheet($this->view->baseUrl('/css/960.css'), 'all')
         	->appendStylesheet($this->view->baseUrl('/css/default.css'), 'all');
     }
 }

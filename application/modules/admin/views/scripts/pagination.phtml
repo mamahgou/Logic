@@ -1,0 +1,27 @@
+<?php if ($this->pageCount > 1):
+$request = Zend_Controller_Front::getInstance()->getRequest();
+$params = $request->getParams();
+?>
+<div class="pageNav">
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a class="previous" href="<?php $params['page'] = $this->previous; echo $this->url($params); ?>">上一頁</a>
+<?php else: ?>
+  <span class="previous">上一頁</span>
+<?php endif; ?>
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <a href="<?php $params['page'] = $page; echo $this->url($params); ?>"><?php echo $page; ?></a>
+  <?php else: ?>
+    <span class="selected"><?php echo $page; ?></span>
+  <?php endif; ?>
+<?php endforeach; ?>
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a class="next" href="<?php $params['page'] = $this->next; echo $this->url($params); ?>">下一頁</a>
+<?php else: ?>
+  <span class="next">下一頁</span>
+<?php endif; ?>
+</div>
+<?php endif; ?>

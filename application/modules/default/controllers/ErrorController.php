@@ -7,14 +7,32 @@ class ErrorController extends Logic_Controller_Action_Default
         $this->view->headTitle('發生錯誤');
     }
 
+    public function indexAction()
+    {
+        $this->_forward('error');
+    }
+
+    public function privilegeAction()
+    {
+        $this->getResponse()->setHttpResponseCode(500);
+    }
+
     public function errorAction()
     {
         $errors = $this->_getParam('error_handler');
 
         if (!$errors) {
-            $this->view->message = 'You have reached the error page';
+            $this->view->exception = new Exception('錯誤顯示頁面');
             return;
         }
+
+        // Log exception, if logger available
+        if ($log = $this->getLog()) {
+            $log->err($errors->exception);
+        }
+
+        // conditionally display exceptions
+        $this->view->exception = $errors->exception;
 
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
@@ -27,17 +45,7 @@ class ErrorController extends Logic_Controller_Action_Default
             default:
                 // application error
                 $this->getResponse()->setHttpResponseCode(500);
-                $this->view->message = 'Application error';
-                break;
         }
-
-        // Log exception, if logger available
-        if ($log = $this->getLog()) {
-            $log->err($errors->exception);
-        }
-
-        // conditionally display exceptions
-        $this->view->exception = $errors->exception;
     }
 
     public function getLog()

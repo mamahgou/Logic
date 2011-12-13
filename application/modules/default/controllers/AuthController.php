@@ -1,6 +1,6 @@
 <?php
 
-class Admin_AuthController extends Logic_Controller_Action_Admin
+class AuthController extends Logic_Controller_Action_Default
 {
 
     public function init()
@@ -25,7 +25,7 @@ class Admin_AuthController extends Logic_Controller_Action_Admin
 
         if (isset($this->_storage[$module]) && !empty($this->_storage[$module])) {
             //already login
-            $this->_redirect($module);
+            $this->_redirect('/');
         }
 
         //captcha
@@ -88,9 +88,8 @@ class Admin_AuthController extends Logic_Controller_Action_Admin
                     $errorMessage[] = $inputErrorMessage;
                 }
             } else {
-                //$db = $this->_bootstrap->getResource('db');
                 $db = Zend_Registry::get('db');
-                $authAdapter = new Logic_Auth_Admin($db);
+                $authAdapter = new Logic_Auth_Default($db);
                 $authAdapter->setAccount($input->account)->setPassword($input->password);
 
                 //authenticate
@@ -104,7 +103,7 @@ class Admin_AuthController extends Logic_Controller_Action_Admin
                     $auth->getStorage()->write($this->_storage);
 
                     //redirect
-                    $this->_redirect($module);
+                    $this->_redirect('/');
                 } else {
                     $captcha->generate();
                     $errorMessage = $result->getMessages();
@@ -125,7 +124,7 @@ class Admin_AuthController extends Logic_Controller_Action_Admin
         $module = $this->getRequest()->getModuleName();
         unset($this->_storage[$module]);
         Zend_Auth::getInstance()->getStorage()->write($this->_storage);
-        $this->_redirect($module);
+        $this->_redirect('/');
     }
 
 }

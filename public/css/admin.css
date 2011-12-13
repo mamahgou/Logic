@@ -1,0 +1,121 @@
+@CHARSET "UTF-8";
+
+#dialog {
+    display: none;
+}
+
+nav {
+    background-color: #000;
+    color: #fff;
+}
+
+nav a, nav a:visited {
+    color: #fff;
+}
+
+nav a:hover {
+    color: #06e;
+}
+
+#middle {
+    min-height: 550px;
+    *height: 550px;
+}
+
+#login {
+    border: 6px solid #999;
+    margin: 3em auto;
+    width: 500px;
+    padding: 20px;
+}
+
+#login legend {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0 0.5em;
+}
+
+#login .label {
+    display: block;
+    width: 120px;
+    float: left;
+    text-align: right;
+    height: 28px;
+    line-height: 28px;
+    margin-right: 2em;
+}
+
+#login span {
+    display: block;
+    width: 300px;
+    float: left;
+}
+
+#sidebar {
+    width: 180px; 
+    margin-right: 0px;
+}
+
+#sidebar ul, #sidebar li {
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar li {
+    list-style: none;
+}
+
+#sidebar ul.menu ul {
+    padding: 0 0 0.5em 1em;
+}
+
+#sidebar a {
+    display: block;
+    padding: 0.3em 0 0.3em 1em;
+    color: #000;
+    line-height: 1.8em;
+    font-size: 18px;
+}
+
+#sidebar a.category {
+    cursor: default;
+    font-weight: bold;
+}
+
+#sidebar a:hover, #sidebar a.selected {
+    background-color: #555;
+    color: #fff;
+}
+
+#sidebar a:hover:after {
+    content: ' «';
+}
+
+#main_area {
+    background-color: #fff;
+    min-height: 550px;
+    *height: 550px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-left: 0px;
+}
+
+#display {
+    padding: 0 20px;
+}
+
+.w80 {
+    width: 80px;
+}
+
+.w160 {
+    width: 160px;
+}
+
+.w240 {
+    width: 240px;
+}
+
+.float_right {
+    float: right; 
+}

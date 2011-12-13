@@ -29,6 +29,7 @@ class Logic_Acl extends Zend_Acl
         $this->allow(null, null, 'auth');
         $this->allow(null, null, 'error');
         $this->allow(null, null, 'upload');
+
         return $this;
     }
 }

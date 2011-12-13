@@ -1,15 +1,18 @@
 <?php
 
-class Logic_View_Helper_JqueryUI
+class Logic_View_Helper_JqueryUI extends Zend_View_Helper_Abstract
 {
+    /**
+     * loading jquery ui
+     *
+     * @return void
+     */
     public function jqueryUI()
     {
-        $front = Zend_Controller_Front::getInstance();
-        $baseUrl = $front->getBaseUrl();
         $headLink = new Zend_View_Helper_HeadLink();
-        $headLink->appendStylesheet($baseUrl . '/css/jquery-ui.css');
+        $headLink->appendStylesheet($this->view->baseUrl('/css/jquery-ui.css'), 'all');
 
-        $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js');
+        $headScript = new Zend_View_Helper_HeadScript();
+        $headScript->offsetSetFile(2, '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
+class Logic_Auth_Default implements Zend_Auth_Adapter_Interface
 {
     /**
      * Db Adapter
@@ -72,7 +72,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
                     'id' => $info['id'],
                     'account' => $info['account'],
                     'name' => $info['name'],
-                    'role' => 'admin'
+                    'role' => 'member'
                 );
                 $this->result['messages'][] = '認證成功';
                 //update last login time
@@ -93,7 +93,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
      * set account for authenticate
      *
      * @param   string      $account
-     * @return  Logic_Auth_Admin
+     * @return  Logic_Auth_Default
      */
     public function setAccount($account)
     {
@@ -105,7 +105,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
      * set password for authenticate
      *
      * @param   string      $password
-     * @return  Logic_Auth_Admin
+     * @return  Logic_Auth_Default
      */
     public function setPassword($password)
     {
@@ -143,7 +143,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
         $credential = '(CASE WHEN ' . $this->_db->quoteInto('`password` = ' . $this->_treatment, $this->_password)
                     . ' THEN 1 ELSE 0 END) AS ' . $this->_db->quoteIdentifier('credential');
         $select = $this->_db->select()
-            ->from('operator', array('*', new Zend_Db_Expr($credential)))
+            ->from('member', array('*', new Zend_Db_Expr($credential)))
             ->where('LOWER(`account`) = ?', strtolower($this->_account));
         return $this->_db->fetchRow($select);
     }
@@ -168,7 +168,7 @@ class Logic_Auth_Admin implements Zend_Auth_Adapter_Interface
     {
         try {
             $this->_db->update(
-                'operator',
+                'member',
                 array('last_login' => date('c')),
                 "id = '{$id}'"
             );

@@ -18,12 +18,10 @@ class Logic_Controller_Action_Admin extends Logic_Controller_Action
         parent::__construct($request, $response, $invokeArgs);
 
         //html title
-        $this->view->headTitle('Administration');
+        $this->view->headTitle('Management');
 
         //html head link
         $this->view->headLink()
-        	->prependStylesheet($this->view->baseUrl('/css/style.css'), 'all')
-        	->appendStylesheet($this->view->baseUrl('/css/960.css'), 'all')
         	->appendStylesheet($this->view->baseUrl('/css/admin.css'), 'all');
     }
 

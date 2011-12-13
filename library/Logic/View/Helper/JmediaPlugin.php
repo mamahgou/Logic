@@ -1,13 +1,16 @@
 <?php
 
-class Logic_View_Helper_JmediaPlugin
+class Logic_View_Helper_Jmedia extends Zend_View_Helper_Abstract
 {
-    public function jmediaPlugin()
+    /**
+     * load jquery media plugin
+     *
+     * @return void
+     */
+    public function jmedia()
     {
-        $front = Zend_Controller_Front::getInstance();
-        $baseUrl = $front->getBaseUrl();
         $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile($baseUrl . '/public/js/jquery.media.js');
-        $script->appendFile($baseUrl . '/public/js/jquery.metadata.js');
+        $script->appendFile($this->view->baseUrl('/public/js/jquery.media.js'))
+            ->appendFile($this->view->baseUrl('/public/js/jquery.metadata.js'));
     }
 }

@@ -1,13 +1,11 @@
 <?php
 
-class Logic_View_Helper_Ckeditor
+class Logic_View_Helper_Ckeditor extends Zend_View_Helper_Abstract
 {
     public function ckeditor()
     {
-        $front = Zend_Controller_Front::getInstance();
-        $baseUrl = $front->getBaseUrl();
         $script = new Zend_View_Helper_HeadScript();
-        $script->appendFile($baseUrl . '/js/ckeditor/ckeditor.js');
-        $script->appendFile($baseUrl . '/js/ckeditor/adapters/jquery.js');
+        $script->appendFile($this->view->baseUrl('/js/ckeditor/ckeditor.js'))
+            ->appendFile($this->view->baseUrl('/js/ckeditor/adapters/jquery.js'));
     }
 }

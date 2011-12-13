@@ -4,7 +4,7 @@ class Admin_ErrorController extends Logic_Controller_Action_Admin
 {
     public function init()
     {
-        $this->view->headTitle('Error');
+        $this->view->headTitle('發生錯誤');
     }
 
     public function indexAction()
@@ -26,6 +26,14 @@ class Admin_ErrorController extends Logic_Controller_Action_Admin
             return;
         }
 
+        // Log exception, if logger available
+        if ($log = $this->getLog()) {
+            $log->err($errors->exception);
+        }
+
+        // conditionally display exceptions
+        $this->view->exception = $errors->exception;
+
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
@@ -37,16 +45,7 @@ class Admin_ErrorController extends Logic_Controller_Action_Admin
             default:
                 // application error
                 $this->getResponse()->setHttpResponseCode(500);
-                break;
         }
-
-        // Log exception, if logger available
-        if ($log = $this->getLog()) {
-            $log->err($errors->exception);
-        }
-
-        // conditionally display exceptions
-        $this->view->exception = $errors->exception;
     }
 
     public function getLog()

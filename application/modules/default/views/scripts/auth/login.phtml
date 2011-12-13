@@ -31,14 +31,15 @@ $(document).ready(function(){
     }
 });
 <?php $this->inlineScript()->CaptureEnd();?>
-<form id="form" method="post" action="/admin/login/">
-<fieldset id="login">
-<legend>請輸入您的管理帳號</legend>
-<p class="clearfix"><label class="label" for="account">E-mail：</label><span><?php echo  $this->formText('account', $this->account, array('class' => 'w240'));?></span></p>
-<p class="clearfix"><label class="label" for="password">密碼：</label><span><?php echo $this->formPassword('password', '', array('class' => 'w240'));?></span></p>
+<form id="form" method="post" action="<?php echo $this->baseUrl('/auth/login/');?>">
+<div id="login">
+<h2>請輸入您的帳號管理</h2>
+<hr>
+<p class="clearfix"><label class="label" for="account">E-mail：</label><span><?php echo  $this->formText('account', $this->account);?></span></p>
+<p class="clearfix"><label class="label" for="password">密碼：</label><span><?php echo $this->formPassword('password');?></span></p>
 <p class="clearfix"><label class="label" for="captcha-input">驗證碼：</label><span><?php echo $this->formText('captcha[input]', '', array('class' => 'w80')) . $this->captcha->render() . $this->formHidden('captcha[id]', $this->captcha->getId()) ?></span></p>
 <p class="clearfix"><label class="label">&nbsp;</label><span><input type="submit" class="btn" value="登入" /></span></p>
-</fieldset>
+</div>
 </form>
 <div id="dialog">
     <ul>

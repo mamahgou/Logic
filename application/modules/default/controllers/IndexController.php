@@ -2,15 +2,9 @@
 
 class IndexController extends Logic_Controller_Action_Default
 {
-
-    public function init()
+    public function indexAction()
     {
-        /* Initialize action controller here */
-    }
-
-    public function indexAction ()
-    {
-
+        $this->_redirect('/admin/');
     }
 }
 
